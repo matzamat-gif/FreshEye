@@ -3,8 +3,13 @@ import react from '@vitejs/plugin-react';
 import tailwindcss from '@tailwindcss/vite';
 import { VitePWA } from 'vite-plugin-pwa';
 
+// On GitHub Pages the app is served from https://<user>.github.io/FreshEye/,
+// so the build needs that base path. Local dev/preview stays at the root.
+const base = process.env.GITHUB_ACTIONS ? '/FreshEye/' : '/';
+
 // Noy HaSade / FreshEye — field inventory PWA.
 export default defineConfig({
+  base,
   plugins: [
     react(),
     tailwindcss(),
@@ -18,7 +23,8 @@ export default defineConfig({
         short_name: 'נוי השדה',
         dir: 'rtl',
         lang: 'he',
-        start_url: '/',
+        start_url: base,
+        scope: base,
         display: 'standalone',
         background_color: '#F5F5F4',
         theme_color: '#1E3E20',
