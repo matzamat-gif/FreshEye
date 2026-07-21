@@ -3,9 +3,11 @@ import react from '@vitejs/plugin-react';
 import tailwindcss from '@tailwindcss/vite';
 import { VitePWA } from 'vite-plugin-pwa';
 
-// On GitHub Pages the app is served from https://<user>.github.io/FreshEye/,
-// so the build needs that base path. Local dev/preview stays at the root.
-const base = process.env.GITHUB_ACTIONS ? '/FreshEye/' : '/';
+// On GitHub Pages the app is served from https://<user>.github.io/<repo>/,
+// so the build needs that base path. Derived from the repo name in CI; local
+// dev/preview stays at the root. GITHUB_REPOSITORY is like "owner/repo".
+const repo = process.env.GITHUB_REPOSITORY?.split('/')[1];
+const base = repo ? `/${repo}/` : '/';
 
 // Noy HaSade / FreshEye — field inventory PWA.
 export default defineConfig({
